@@ -1,0 +1,49 @@
+<nav class="glass-navbar">
+  <ul>
+    <li class="nav-item {% if request.path == '/work/' %}active{% endif %}"><a href="/work/">Work</a></li>
+    <li class="nav-item {% if request.path == '/about/' %}active{% endif %}"><a href="/about/">About</a></li>
+    <li class="nav-item {% if request.path == '/careers/' %}active{% endif %}"><a href="/careers/">Careers</a></li>
+  </ul>
+</nav>
+<style>
+.glass-navbar {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(160, 160, 160, 0.35);
+  backdrop-filter: blur(16px) saturate(180%);
+  border-radius: 40px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 0.5rem 2.5rem;
+  z-index: 1000;
+}
+.glass-navbar ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.glass-navbar .nav-item {
+  font-size: 1.5rem;
+  color: #181818;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.glass-navbar .nav-item.active {
+  background: #fff;
+  color: #181818;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.glass-navbar .nav-item:not(.active):hover {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+}
+.glass-navbar .nav-item a {
+  text-decoration: none;
+  color: inherit;
+}
+</style>

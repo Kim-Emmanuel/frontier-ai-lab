@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Frontier AI Lab — Technology-led Creative Agency</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="A technology-led creative landing page with dynamic timezones, interactive filters, case studies, services, and a contact form." />
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-row">
+      <a href="#" class="brand" aria-label="Home">
+        <!-- Ghost-like logo (placeholder) -->
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bfe7c9" />
+              <stop offset="100%" stop-color="#7fc79a" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M32 6c11 0 18 9 18 20v22c0 2-2 3-3 2l-4-3a2 2 0 0 0-3 .5l-2 3a2 2 0 0 1-3 .4l-3-2a2 2 0 0 0-2 0l-3 2a2 2 0 0 1-3-.4l-2-3a2 2 0 0 0-3-.5l-4 3c-1 1-3 0-3-2V26C14 15 21 6 32 6Z"
+            fill="url(#g)" />
+          <circle cx="24" cy="26" r="3" fill="#0e1f16" />
+          <circle cx="40" cy="26" r="3" fill="#0e1f16" />
+        </svg>
+        <span class="name">zendesk</span>
+      </a>
+
+      <div class="right-cta">
+        <div class="time" aria-live="polite">
+          <span class="city">London, UK</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span id="time-lon">10:30 GMT+1</span>
+        </div>
+        <div class="time" aria-live="polite">
+          <span class="city">Auckland, NZ</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span id="time-akl">21:30 GMT+12</span>
+        </div>
+        <button class="btn" type="button"
+          onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Let’s Talk</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main class="hero">
+    <div class="container" data-animate>
+      <p class="kicker">Technology-led creative</p>
+      <h1 class="title">HELP MY AI</h1>
+      {% include 'navbar.html' %}
+
+      <section class="filters" aria-label="Options">
+        <div class="group">
+          <div class="group-label">Region &amp; Zone</div>
+          <div class="chips" role="listbox" aria-label="Region and zone" id="chips-region">
+            <button class="chip active" role="option" aria-selected="true" data-value="GLOBAL">GLOBAL</button>
+            <button class="chip" role="option" aria-selected="false" data-value="EMEA">EMEA</button>
+            <button class="chip" role="option" aria-selected="false" data-value="AMER">AMER</button>
+            <button class="chip" role="option" aria-selected="false" data-value="APAC">APAC</button>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-label">Communication</div>
+          <div class="chips" role="listbox" aria-label="Communication" id="chips-comm">
+            <button class="chip active" role="option" aria-selected="true"
+              data-value="COMMUNICATION">COMMUNICATION</button>
+            <button class="chip" role="option" aria-selected="false" data-value="PRODUCT">PRODUCT</button>
+            <button class="chip" role="option" aria-selected="false" data-value="STRATEGY">STRATEGY</button>
+            <button class="chip" role="option" aria-selected="false" data-value="SUPPORT">SUPPORT</button>
+          </div>
+        </div>
+      </section>
+
+      <div class="partner" aria-label="Collaboration">
+        <span class="tag">In collaboration with</span>
+        <span class="logo">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" fill="#0ea072" />
+          </svg>
+          Zendesk
+        </span>
+      </div>
+    </div>
+
+    <!-- Faint head-like silhouette -->
+    <svg class="silhouette" viewBox="0 0 800 600" aria-hidden="true">
+      <defs>
+        <radialGradient id="headGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#86c99b" />
+          <stop offset="100%" stop-color="#86c99b" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="400" cy="210" r="100" fill="url(#headGrad)" />
+      <path d="M300,320c0,0 28,-18 100,-18s100,18 100,18 140,60 140,160H160c0,-100 140,-160 140,-160Z"
+        fill="url(#headGrad)" />
+    </svg>
+  </main>
+
+  <!-- Value proposition -->
+  <section aria-labelledby="about-title">
+    <div class="container" data-animate>
+      <div class="section-head">
+        <h2 class="section-title" id="about-title">We build human-centered AI experiences</h2>
+        <div class="help">Region: <span id="regionOut">GLOBAL</span> • Focus: <span id="commOut">COMMUNICATION</span>
+        </div>
+      </div>
+      <p class="section-sub">
+        From strategy to shipped product, we partner with teams to design delightful, responsible AI that solves real
+        customer needs.
+        Our multidisciplinary approach blends research, prototyping, and brand craft to move fast without breaking
+        trust.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section aria-labelledby="services-title">
+    <div class="container" data-animate>
+      <div class="section-head">
+        <h2 class="section-title" id="services-title">What we do</h2>
+        <div class="help">Flexible engagements from discovery sprints to end-to-end builds</div>
+      </div>
+      <div class="services">
+        <article class="card">
+          <div class="icon">S</div>
+          <h3>Strategy</h3>
+          <p>Opportunity mapping, AI readiness, roadmaps, governance, and success metrics.</p>
+        </article>
+        <article class="card">
+          <div class="icon">C</div>
+          <h3>Communication</h3>
+          <p>Conversational design, tone, guardrails, and personality systems across channels.</p>
+        </article>
+        <article class="card">
+          <div class="icon">P</div>
+          <h3>Product</h3>
+          <p>Prototyping, UX, engineering handoff, and productionization with evaluation loops.</p>
+        </article>
+        <article class="card">
+          <div class="icon">X</div>
+          <h3>Support</h3>
+          <p>Agent augmentation, help centers, deflection flows, and feedback instrumentation.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case studies -->
+  <section aria-labelledby="cases-title">
+    <div class="container" data-animate>
+      <div class="section-head">
+        <h2 class="section-title" id="cases-title">Selected work</h2>
+        <a class="btn" href="#contact">Start a project</a>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <div class="case-visual" role="img" aria-label="Abstract app dashboard preview"></div>
+          <div class="case-body">
+            <h3>Proactive AI support assistant</h3>
+            <div class="meta">
+              <span>Enterprise SaaS</span> • <span>CSAT +18%</span> • <span>Resolution −32%</span>
+            </div>
+          </div>
+        </article>
+        <article class="case">
+          <div class="case-visual" role="img" aria-label="Abstract chat interface"></div>
+          <div class="case-body">
+            <h3>Multilingual conversational CX</h3>
+            <div class="meta">
+              <span>Global retail</span> • <span>45+ locales</span> • <span>NPS +12</span>
+            </div>
+          </div>
+        </article>
+        <article class="case">
+          <div class="case-visual" role="img" aria-label="Abstract knowledge system"></div>
+          <div class="case-body">
+            <h3>Knowledge-aware agent copilots</h3>
+            <div class="meta">
+              <span>Fintech</span> • <span>AHT −21%</span> • <span>Quality +15%</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logos strip -->
+  <section aria-labelledby="logos-title">
+    <div class="container" data-animate>
+      <div class="section-head">
+        <h2 class="section-title" id="logos-title">Trusted by teams like yours</h2>
+        <div class="help">A few of the partners we’ve worked with</div>
+      </div>
+      <div class="logos" aria-label="Client logos">
+        <div class="logo-tile" title="Acme">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <rect x="0" y="10" width="120" height="12" rx="6" fill="#2c7f5c" />
+          </svg>
+        </div>
+        <div class="logo-tile" title="Northstar">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="10" fill="#2c7f5c" />
+            <rect x="34" y="12" width="76" height="8" rx="4" fill="#2c7f5c" />
+          </svg>
+        </div>
+        <div class="logo-tile" title="Echo">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <rect x="0" y="6" width="120" height="4" fill="#2c7f5c" />
+            <rect x="0" y="14" width="120" height="4" fill="#2c7f5c" />
+            <rect x="0" y="22" width="120" height="4" fill="#2c7f5c" />
+          </svg>
+        </div>
+        <div class="logo-tile" title="Volt">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <polygon points="10,26 24,6 34,26" fill="#2c7f5c" />
+            <rect x="44" y="10" width="66" height="12" rx="6" fill="#2c7f5c" />
+          </svg>
+        </div>
+        <div class="logo-tile" title="Hearth">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="8" fill="#2c7f5c" />
+            <circle cx="36" cy="16" r="8" fill="#2c7f5c" />
+            <rect x="52" y="10" width="58" height="12" rx="6" fill="#2c7f5c" />
+          </svg>
+        </div>
+        <div class="logo-tile" title="Nimbus">
+          <svg viewBox="0 0 120 32" aria-hidden="true">
+            <ellipse cx="20" cy="16" rx="14" ry="8" fill="#2c7f5c" />
+            <rect x="42" y="12" width="68" height="8" rx="4" fill="#2c7f5c" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section aria-labelledby="testimonial-title">
+    <div class="container" data-animate>
+      <div class="testimonial">
+        <h2 class="section-title" id="testimonial-title" style="margin:0;">What partners say</h2>
+        <p class="quote" id="quoteText">
+          “They move fast without compromising ethics or craft — the ideal partner for AI in customer experience.”
+        </p>
+        <p class="byline" id="quoteByline">CX Director, Global Retail</p>
+        <div class="help">New quote every few seconds</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + Contact -->
+  <section aria-labelledby="contact-title" id="contact">
+    <div class="container" data-animate>
+      <div class="cta">
+        <div>
+          <h3 id="contact-title">Let’s build something people love</h3>
+          <p>Tell us about your goals, constraints, and timeline. We’ll reply within 2 business days.</p>
+          <div class="actions">
+            <a class="btn" href="mailto:hello@example.com">Email us</a>
+            <a class="btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top</a>
+          </div>
+        </div>
+        <form id="contactForm" novalidate>
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required placeholder="Your name" />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" />
+          </div>
+          <div>
+            <label for="region">Region</label>
+            <select id="region" name="region">
+              <option>GLOBAL</option>
+              <option>EMEA</option>
+              <option>AMER</option>
+              <option>APAC</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Project brief</label>
+            <textarea id="message" name="message" required placeholder="What are you trying to achieve?"></textarea>
+          </div>
+          <button class="btn" type="submit">Send inquiry</button>
+          <div class="help" id="formHelp" aria-live="polite"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-top">
+      <a href="#" class="brand" aria-label="Home">
+        <svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#bfe7c9" />
+              <stop offset="100%" stop-color="#7fc79a" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M32 6c11 0 18 9 18 20v22c0 2-2 3-3 2l-4-3a2 2 0 0 0-3 .5l-2 3a2 2 0 0 1-3 .4l-3-2a2 2 0 0 0-2 0l-3 2a2 2 0 0 1-3-.4l-2-3a2 2 0 0 0-3-.5l-4 3c-1 1-3 0-3-2V26C14 15 21 6 32 6Z"
+            fill="url(#g2)" />
+          <circle cx="24" cy="26" r="3" fill="#0e1f16" />
+          <circle cx="40" cy="26" r="3" fill="#0e1f16" />
+        </svg>
+        <span class="name">zendesk</span>
+      </a>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="#">Work</a>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="help">Built with semantic HTML, accessible components, and no external dependencies.</div>
+      <div class="copyright" style="margin-top:8px;">
+        © <span id="year"></span> Your Company. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>
