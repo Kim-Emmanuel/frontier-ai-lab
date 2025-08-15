@@ -5,45 +5,135 @@
     <li class="nav-item {% if request.path == '/careers/' %}active{% endif %}"><a href="/careers/">Careers</a></li>
   </ul>
 </nav>
-<style>
-.glass-navbar {
-  position: fixed;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(160, 160, 160, 0.35);
-  backdrop-filter: blur(16px) saturate(180%);
-  border-radius: 40px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  padding: 0.5rem 2.5rem;
-  z-index: 1000;
-}
-.glass-navbar ul {
-  display: flex;
-  gap: 2rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.glass-navbar .nav-item {
-  font-size: 1.5rem;
-  color: #181818;
-  padding: 0.75rem 2rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-}
-.glass-navbar .nav-item.active {
-  background: #fff;
-  color: #181818;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.glass-navbar .nav-item:not(.active):hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
-}
-.glass-navbar .nav-item a {
-  text-decoration: none;
-  color: inherit;
-}
-</style>
+
+<!-- GSAP Library - Add this to your base template -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<!-- Navbar Animation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize GSAP timeline for navbar entrance
+    const tl = gsap.timeline();
+
+    // Set initial state
+    gsap.set('.glass-navbar', {
+        opacity: 0,
+        y: 50,
+        scale: 0.9
+    });
+
+    gsap.set('.nav-item', {
+        opacity: 0,
+        y: 20
+    });
+
+    // Animate navbar entrance
+    tl.to('.glass-navbar', {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'back.out(1.7)',
+        delay: 0.3
+    })
+    .to('.nav-item', {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power3.out'
+    }, '-=0.4');
+
+    // Add interactive animations
+    document.querySelectorAll('.nav-item').forEach((item, index) => {
+        // Click handler with ripple effect
+        item.addEventListener('click', function(e) {
+            // Prevent default if needed for SPA routing
+            // e.preventDefault();
+            
+            // Remove active class from all items
+            document.querySelectorAll('.nav-item').forEach(navItem => {
+                navItem.classList.remove('active');
+                gsap.to(navItem, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Add active class to clicked item
+            this.classList.add('active');
+
+            // Create ripple effect
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            this.appendChild(ripple);
+
+            // Animate the click
+            gsap.fromTo(this, 
+                { scale: 0.95 },
+                { scale: 1, duration: 0.4, ease: 'back.out(1.7)' }
+            );
+
+            // Remove ripple after animation
+            setTimeout(() => {
+                if (ripple.parentNode) {
+                    ripple.remove();
+                }
+            }, 600);
+        });
+
+        // Enhanced hover animations
+        item.addEventListener('mouseenter', function() {
+            if (!this.classList.contains('active')) {
+                gsap.to(this, {
+                    scale: 1.05,
+                    y: -2,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        });
+
+        item.addEventListener('mouseleave', function() {
+            if (!this.classList.contains('active')) {
+                gsap.to(this, {
+                    scale: 1,
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            }
+        });
+    });
+
+    // Continuous floating animation
+    gsap.to('.glass-navbar', {
+        y: -3,
+        duration: 2.5,
+        ease: 'power2.inOut',
+        repeat: -1,
+        yoyo: true,
+        delay: 1.5
+    });
+
+    // Subtle glow breathing effect
+    gsap.to('.glass-navbar', {
+        boxShadow: '0 12px 40px 0 rgba(31, 38, 135, 0.5)',
+        duration: 3,
+        ease: 'power2.inOut',
+        repeat: -1,
+        yoyo: true,
+        delay: 2
+    });
+});
+</script>

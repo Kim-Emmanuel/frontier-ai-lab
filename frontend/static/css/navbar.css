@@ -1,41 +1,208 @@
-/* Navbar glassmorphism styles */
 .glass-navbar {
+  --nav-bg: hsl(0deg 0% 100% / 53.33%);
+  --nav-border: rgba(255, 255, 255, 0.18);
+  --text: #181818;
+  --text-invert: #0f0f10;
+  --hover-bg: rgba(255, 255, 255, 0.16);
+
   position: fixed;
-  bottom: 40px;
+  bottom: 30px; /* reduced from 40px */
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(160, 160, 160, 0.35);
-  backdrop-filter: blur(16px) saturate(180%);
-  border-radius: 40px;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  padding: 0.5rem 2.5rem;
+  background: var(--nav-bg);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid var(--nav-border);
+  border-radius: 18px;
+  box-shadow: 0 6px 22px rgba(31, 38, 135, 0.28);
+  padding:  0.6rem 2.2rem;
   z-index: 1000;
+  will-change: transform, box-shadow;
 }
+
 .glass-navbar ul {
   display: flex;
-  gap: 2rem;
+  gap: 0.6rem; /* tighter gap */
   list-style: none;
   margin: 0;
   padding: 0;
+  position: relative;
+  z-index: 1;
 }
-.glass-navbar .nav-item {
-  font-size: 1.5rem;
-  color: #181818;
-  padding: 0.75rem 2rem;
-  border-radius: 2rem;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+
+.nav-item {
+  font-size: clamp(0.85rem, 1.4vw, 0.95rem);
+  font-weight: 500;
+  border-radius: 12px;
 }
-.glass-navbar .nav-item.active {
-  background: #fff;
-  color: #181818;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-.glass-navbar .nav-item:not(.active):hover {
-  background: rgba(255,255,255,0.18);
-  color: #fff;
-}
-.glass-navbar .nav-item a {
+
+.nav-item a {
+  display: block;
   text-decoration: none;
-  color: inherit;
+  color: var(--text);
+  padding: 0.38rem 0.7rem;
+  border-radius: 10px;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.nav-item.active a {
+  color: var(--text-invert);
+}
+
+.nav-item:not(.active):hover a {
+  color: #fff;
+  background: var(--hover-bg);
+}
+
+.nav-indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  height: calc(100% - 10px);
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  width: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 480px) {
+  .glass-navbar {
+    bottom: 14px;
+    border-radius: 14px;
+    padding: 0.25rem 0.4rem;
+  }
+  .glass-navbar ul {
+    gap: 0.5rem;
+  }
+  .nav-item a {
+    padding: 0.34rem 0.6rem;
+  }
+}
+
+/* Active state styling - White background */
+.glass-navbar .nav-item.active {
+    background: rgba(255, 255, 255, 1);
+    color: #1a1a1a;
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    transform: translateY(-2px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-navbar .nav-item.active::before {
+    display: none;
+}
+
+/* Hover state for non-active items */
+.glass-navbar .nav-item:not(.active):hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    box-shadow: 
+        0 4px 16px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.glass-navbar .nav-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+}
+
+/* Ripple effect styles */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(0);
+    animation: ripple-animation 0.6s ease-out;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Focus states for accessibility */
+.glass-navbar .nav-item:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.glass-navbar .nav-item a:focus {
+    outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .glass-navbar {
+        padding: 0.5rem 1.8rem;
+        bottom: 20px;
+    }
+    
+    .glass-navbar ul {
+        gap: 1.2rem;
+    }
+    
+    .glass-navbar .nav-item {
+        font-size: 1rem;
+        padding: 0.7rem 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .glass-navbar {
+        padding: 0.4rem 1.5rem;
+    }
+    
+    .glass-navbar .nav-item {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .glass-navbar {
+        background: rgba(0, 0, 0, 0.8);
+        border: 2px solid #fff;
+    }
+    
+    .glass-navbar .nav-item {
+        color: #fff;
+    }
+    
+    .glass-navbar .nav-item.active {
+        background: #fff;
+        color: #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .glass-navbar .nav-item,
+    .glass-navbar .nav-item::before,
+    .ripple {
+        transition: none;
+        animation: none;
+    }
+    
+    .glass-navbar .nav-item:hover::before {
+        display: none;
+    }
 }
